@@ -26,8 +26,10 @@ class Button {
     this.block = block
 
     this.CSS = {
-      container: "cdx-container",
-      checkbox: "cdx-checkbox",
+      title: "cdx-button__title",
+      container: "cdx-button__container",
+      input: "cdx-button__input",
+      inputCheckbox: "cdx-button__input--checkbox",
     };
 	}
 
@@ -50,7 +52,7 @@ class Button {
     input.id = id;
 
     if (type === 'checkbox') {
-      input.classList.add(this.CSS.checkbox)
+      input.classList.add(this.CSS.inputCheckbox)
       input.checked = this.data && this.data[id] ? this.data[id] : false;
       input.addEventListener('click', () => {
         this.block.save().then((state) => {
@@ -63,6 +65,7 @@ class Button {
     }
 
     label.innerText = inputLabel;
+    inputWrapper.classList.add(this.CSS.input);
     inputWrapper.appendChild(label);
     inputWrapper.appendChild(input);
 
@@ -75,15 +78,25 @@ class Button {
 	 * @return {HTMLElement}
 	 */
 	render() {
+    const title = document.createElement('h4')
     const wrapper = document.createElement('div');
+    const innerContainer = document.createElement('div');
     const urlInput = this.createInput('url', 'text', this.api.i18n.t('Url label'), this.api.i18n.t('Url placeholder'))
     const labelInput = this.createInput('label', 'text', this.api.i18n.t('Button label'), this.api.i18n.t('Button placeholder'))
     const targetBlankCheckbox = this.createInput('targetBlank', 'checkbox', this.api.i18n.t('Checkbox label'), '')
 
-    wrapper.classList.add('cdx-personality', this.api.styles.block, this.CSS.container)
+    title.innerText = this.api.i18n.t('EditorJs Button title')
+    title.classList.add(this.CSS.title)
+
+    wrapper.classList.add('cdx-personality', this.api.styles.block)
+    wrapper.appendChild(title);
     wrapper.appendChild(urlInput);
-    wrapper.appendChild(labelInput);
-    wrapper.appendChild(targetBlankCheckbox);
+
+    innerContainer.classList.add(this.CSS.container)
+    innerContainer.appendChild(labelInput);
+    innerContainer.appendChild(targetBlankCheckbox);
+
+    wrapper.appendChild(innerContainer);
     return wrapper;
   }
 

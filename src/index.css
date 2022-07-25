@@ -1,8 +1,21 @@
-.cdx-container {
-	display: flex;
+.cdx-button__title {
+  margin-bottom: 1rem;
 }
 
-.cdx-checkbox {
+.cdx-button__container {
+  display: flex;
+}
+
+.cdx-button__input {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.cdx-button__input:last-child {
+  margin-left: 0.75rem;
+}
+
+.cdx-button__input--checkbox {
   width: 1.5rem;
   height: 1.5rem;
 }
