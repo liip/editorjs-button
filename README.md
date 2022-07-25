@@ -29,13 +29,13 @@ This Tool has no config params
 
 ## Output data
 
-Marked text will be wrapped with a `span` tag with an `small` class.
-
 ```json
 {
-    "type" : "text",
+    "type" : "button",
     "data" : {
-        "text" : "This is really <span class=\"small\">small</span> text."
+      "url": "https://yoururl.com",
+      "label": "Button Label",
+      "targetBlank": true
     }
 }
 ```
