@@ -4,6 +4,7 @@
 
 .cdx-button__container {
   display: flex;
+  gap: 1.5rem;
 }
 
 .cdx-button__input {
@@ -19,3 +20,8 @@
   width: 1.5rem;
   height: 1.5rem;
 }
+
+.cdx-button__input--select {
+  width: 100%;
+}
+
