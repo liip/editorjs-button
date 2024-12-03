@@ -30,7 +30,6 @@ class Button {
       container: "cdx-button__container",
       input: "cdx-button__input",
       inputCheckbox: "cdx-button__input--checkbox",
-      inputSelect: 'cdx-button__input--select'
     };
 	}
 
@@ -89,7 +88,7 @@ class Button {
 
     const selectElement = document.createElement('select');
     selectElement.id = id;
-    selectElement.classList.add(this.CSS.inputSelect);
+    selectElement.classList.add(this.api.styles.input);
 
     options.map((option) => {
       const optionElement = document.createElement('option')
