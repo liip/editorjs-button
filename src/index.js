@@ -126,7 +126,8 @@ class Button {
       this.api.i18n.t('Button type select label'),
       [
         { value: 'primary', label: this.api.i18n.t('Button type primary label') },
-        { value: 'secondary', label: this.api.i18n.t('Button type secondary label') }
+        { value: 'secondary', label: this.api.i18n.t('Button type secondary label') },
+        { value: 'tertiary', label: this.api.i18n.t('Button type tertiary label') }
       ]
     );
 
