@@ -73,6 +73,43 @@ class Button {
   }
 
   /**
+   * Create Select field
+   * @param id
+   * @param options
+   * @return {HTMLElement}
+   * @private
+   */
+  createSelect(id, label, options){
+    const selectWrapperElement = document.createElement('div');
+    selectWrapperElement.classList.add(this.CSS.input);
+
+    const labelElement = document.createElement('label');
+    labelElement.innerText = label;
+
+    const selectElement = document.createElement('select');
+    selectElement.id = id;
+    selectElement.classList.add(this.api.styles.input);
+
+    options.map((option) => {
+      const optionElement = document.createElement('option')
+      optionElement.value = option.value;
+      optionElement.innerText = option.label;
+
+      selectElement.append(optionElement);
+    })
+
+    selectElement.value = this.data && this.data[id] ? this.data[id] : 'primary';
+    selectElement.addEventListener('change', () => {
+      this.block.save().then((state) => {
+        this.api.blocks.update(state.id, state.data);
+      });
+    });
+    selectWrapperElement.append(labelElement, selectElement);
+
+    return selectWrapperElement;
+  }
+
+  /**
 	 * Create button element for Toolbar
 	 *
 	 * @return {HTMLElement}
@@ -84,6 +121,15 @@ class Button {
     const urlInput = this.createInput('url', 'text', this.api.i18n.t('Url label'), this.api.i18n.t('Url placeholder'))
     const labelInput = this.createInput('label', 'text', this.api.i18n.t('Button label'), this.api.i18n.t('Button placeholder'))
     const targetBlankCheckbox = this.createInput('targetBlank', 'checkbox', this.api.i18n.t('Checkbox label'), '')
+    const buttonTypeSelect = this.createSelect(
+      'buttonType',
+      this.api.i18n.t('Button type select label'),
+      [
+        { value: 'primary', label: this.api.i18n.t('Button type primary label') },
+        { value: 'secondary', label: this.api.i18n.t('Button type secondary label') },
+        { value: 'tertiary', label: this.api.i18n.t('Button type tertiary label') }
+      ]
+    );
 
     title.innerText = this.api.i18n.t('EditorJs Button title')
     title.classList.add(this.CSS.title)
@@ -95,6 +141,7 @@ class Button {
     innerContainer.classList.add(this.CSS.container)
     innerContainer.appendChild(labelInput);
     innerContainer.appendChild(targetBlankCheckbox);
+    innerContainer.appendChild(buttonTypeSelect);
 
     wrapper.appendChild(innerContainer);
     return wrapper;
@@ -109,10 +156,12 @@ class Button {
     const url = block.querySelector('#url');
     const label = block.querySelector('#label');
     const targetBlank = block.querySelector('#targetBlank');
+    const buttonType = block.querySelector('#buttonType');
     return {
       url: url.value,
       label: label.value,
       targetBlank: targetBlank.checked,
+      buttonType: buttonType.value,
     }
 	}
 
